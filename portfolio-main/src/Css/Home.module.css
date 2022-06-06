@@ -1,0 +1,29 @@
+
+.name{
+    width:350px;
+  height: 320px;
+   margin-top:-80px;
+   margin-left: 20px;
+   
+}
+.third>a:hover{
+  color:blue;
+}
+.description{
+  
+    margin-left:32px;
+    margin-bottom: -10px;
+
+}
+.resume{
+  margin-left:28px;
+  color:#90CDF4;
+  background-color: rgb(5,10,48);
+  width:100px;
+  height: 40px;
+  border-radius:10px;
+  font-weight: bold;
+}
+.hello{
+  border: 2px solid red;
+}
