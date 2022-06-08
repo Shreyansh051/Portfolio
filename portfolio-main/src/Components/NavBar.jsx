@@ -45,8 +45,8 @@ const CustomNav = () => {
               <Nav.Link className={`text-center navLink`} key={item.label}>
                 <NavLink
                   exact
-                  className={`color-customBlue w-100 text-decoration-none `}
-                  activeClassName={`font-weight-bold  mb-5 `}
+                  className={`color-customBlue ml-5 w-200 text-decoration-none `}
+                  activeClassName={`${styles.active} font-weight-bold  mb-5 `}
                   to={item.route}
                 >
                   {item.label}

@@ -23,7 +23,7 @@ const Projects = () => {
                 </a>
               </Col>
               <Col className="pt-2">
-                <h3 className="font-weight-bold color-customBlue mb-0">
+                <h3 className={`   font-weight-bold color-customBlue mb-0`}>
                   {proj.label}
                 </h3>
                 <br />

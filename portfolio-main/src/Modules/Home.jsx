@@ -41,7 +41,7 @@ const Home = ({ history }) => {
                       target="_blank"
                       rel="noopener noreferrer"
                       href="https://github.com/Shreyansh051"
-                      className="color-customBlue ml-4 p-0 mr-3"
+                      className={`${styles.effe}  ml-4 p-0 mr-3`}
                     >
                       <FontAwesomeIcon size="2x" icon={faGithubSquare} />
                     </a>
@@ -49,14 +49,14 @@ const Home = ({ history }) => {
                       target="_blank"
                       rel="noopener noreferrer"
                       href="https://www.linkedin.com/in/shreyansh-21b181215/"
-                      className="color-customBlue p-0 mr-3"
+                      className={` ${styles.effe} p-0 mr-3`}
                     >
                       <FontAwesomeIcon size="2x" icon={faLinkedin} />
                     </a>
                   </div>
                   <br />
                   <button
-                    className={` ${styles.resume}`}
+                    className={` ${styles.resume} ${styles.bg}`}
                     onClick={() => window.open("/resume.pdf", "_blank")}
                   >
                     Resume

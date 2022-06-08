@@ -6,9 +6,7 @@
    margin-left: 20px;
    
 }
-.third>a:hover{
-  color:blue;
-}
+
 .description{
   
     margin-left:32px;
@@ -21,9 +19,31 @@
   background-color: rgb(5,10,48);
   width:100px;
   height: 40px;
-  border-radius:10px;
   font-weight: bold;
 }
-.hello{
-  border: 2px solid red;
+
+
+
+.bg{
+  background-color:rgb(5,10,48);
+  color:#90CDF4;
+  border-radius: 15px;
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
 }
+.bg:hover{
+  background-color:#90CDF4;
+  color:rgb(5,10,48);
+  border-radius: 15px;
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
+  border: none;
+}
+.effe{
+
+  color:rgb(5,10,48);
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
+}
+.effe:hover{
+  color:#90CDF4;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
+}
+
