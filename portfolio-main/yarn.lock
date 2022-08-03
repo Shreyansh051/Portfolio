@@ -9268,6 +9268,11 @@
     "tiny-invariant" "^1.0.2"
     "tiny-warning" "^1.0.0"
 
+"react-script@^2.0.5":
+  "integrity" "sha512-hLFLMFAH3Rr0VJisBz/bPyaJxMEimQGvuVOBXyn3t/nmlbV6mF+nghCPoY1V4dzIi+M1A8iyyXId1cgg8eS6XA=="
+  "resolved" "https://registry.npmjs.org/react-script/-/react-script-2.0.5.tgz"
+  "version" "2.0.5"
+
 "react-scripts@^3.4.1":
   "integrity" "sha512-JpTdi/0Sfd31mZA6Ukx+lq5j1JoKItX7qqEK4OiACjVQletM1P38g49d9/D0yTxp9FrSF+xpJFStkGgKEIRjlQ=="
   "resolved" "https://registry.npmjs.org/react-scripts/-/react-scripts-3.4.1.tgz"
