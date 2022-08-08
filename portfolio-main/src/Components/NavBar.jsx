@@ -24,22 +24,14 @@ const navItems = [
 
 const CustomNav = () => {
   const { width } = useWindowDimensions();
-  const navbarBgColor = width < 768 ? "green" : "red";
   return (
     <div>
-      <Navbar className={` ${styles.navbar}  `} fixed="top">
+      <Navbar collapseOnSelect expand="md"  className={` ${styles.navbar}  `} fixed="top">
         <Link to="/">
           <img className={styles.logo} src="../images/s.gif" alt="logo" />
         </Link>
-
-        <Navbar.Toggle
-          className={`"border-0" `}
-          aria-controls="basic-navbar-nav"
-        />
-        <Navbar.Collapse
-          id="basic-navbar-nav"
-          className={`bg-${navbarBgColor}`}
-        >
+        <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+        <Navbar.Collapse  id="responsive-navbar-nav">
           <Nav className="mx-auto">
             {navItems.map((item) => (
               <Nav.Link className={`text-center navLink`} key={item.label}>

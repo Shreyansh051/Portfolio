@@ -5,7 +5,6 @@ import Home from "./Modules/Home";
 import Skills from "./Modules/Skills";
 import Projects from "./Modules/Projects";
 import Contact from "./Modules/Contact";
-
 function App() {
   return (
     <BrowserRouter>
