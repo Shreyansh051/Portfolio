@@ -7,3 +7,12 @@
 .text:hover{
     color: rgb(5,10,48);
 } */
+
+@media screen and (min-device-width: 425px) and (max-device-width: 765px) { 
+    .cont{
+      margin-top:220px;
+     
+  }
+  
+}
+

@@ -33,7 +33,7 @@ const Home = ({ history }) => {
               " alt="shreyansh"/>
 </div>
                 <p className={styles.description}>
-                I enjoy developing websites and web applications. Love to have conversations about anything and everything.</p>
+                I am always enthusiastic about developing websites and web applications. I like to talk about new technologies</p>
                 <br />
                 <div>
                 <div className={`${styles.third} d-flex ml-2 mt-3`}>

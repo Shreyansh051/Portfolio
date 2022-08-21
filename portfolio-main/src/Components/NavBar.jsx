@@ -1,7 +1,7 @@
 import React from "react";
 import { Navbar, Nav } from "react-bootstrap";
 import { NavLink, Link } from "react-router-dom";
-import useWindowDimensions from "../utils/dimensionHelper";
+// import useWindowDimensions from "../utils/dimensionHelper";
 import styles from "../Css/navbar.module.css";
 const navItems = [
   {
@@ -23,7 +23,7 @@ const navItems = [
 ];
 
 const CustomNav = () => {
-  const { width } = useWindowDimensions();
+  // const { width } = useWindowDimensions();
   return (
     <div>
       <Navbar collapseOnSelect expand="md"  className={` ${styles.navbar}  `} fixed="top">
@@ -37,8 +37,8 @@ const CustomNav = () => {
               <Nav.Link className={`text-center navLink`} key={item.label}>
                 <NavLink
                   exact
-                  className={`color-customBlue ml-5 w-200 text-decoration-none `}
-                  activeClassName={`${styles.active} font-weight-bold  mb-5 `}
+                  className={`${styles.small}  color-customBlue ml-5 w-200 text-decoration-none `}
+                  activeClassName={`${styles.active}  font-weight-bold  mb-5 `}
                   to={item.route}
                 >
                   {item.label}
