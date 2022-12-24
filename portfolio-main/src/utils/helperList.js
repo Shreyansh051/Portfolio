@@ -99,7 +99,7 @@ export const projectsList = [
   {
     label: "Nykaa Clone",
     imgSrc: "../images/Screenshot (55).png",
-    src: "https://nkyclone.netlify.app/",
+    src: "https://prismatic-cocada-1237d9.netlify.app/",
     githubSrc: "https://github.com/Shreyansh051/NykaaClone",
     description:
       "Nykaa is a well known indian e-commerce website so in our construct week project we trying to build nykaa clone. it's a collaborative project.  ",
