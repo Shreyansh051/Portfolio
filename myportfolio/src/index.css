@@ -1,0 +1,32 @@
+/* src/index.css */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* If you prefer to keep some custom CSS outside of Tailwind utilities,
+   you can add it here. For example, specific transitions or unique elements. */
+
+/* Global smooth scroll behavior */
+html {
+  scroll-behavior: smooth;
+}
+/* Define animation delays for staggered effects if needed */
+.animation-delay-2000 { animation-delay: 2s; }
+.animation-delay-1500 { animation-delay: 1.5s; }
+.animation-delay-2500 { animation-delay: 2.5s; }
+.animation-delay-3000 { animation-delay: 3s; }
+.perspective {
+  perspective: 1000px;
+}
+
+.preserve-3d {
+  transform-style: preserve-3d;
+}
+
+.backface-hidden {
+  backface-visibility: hidden;
+}
+
+.rotate-y-180 {
+  transform: rotateY(180deg);
+}
