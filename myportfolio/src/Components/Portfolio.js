@@ -266,8 +266,7 @@ const ProjectCard = ({ project }) => {
 // This component encapsulates the entire portfolio layout and content.
 const App = () => { // Renamed from 'Portfolio' to 'App' for export
     // useWindowDimensions is included but not directly used in the JSX here,
-    // though it's available if dynamic sizing based on width/height was needed.
-    const { width } = useWindowDimensions();
+  
     const [flipped, setFlipped] = useState(false);
     return (
         <div className="min-h-screen bg-zinc-950 text-zinc-200 font-inter antialiased overflow-x-hidden relative">
