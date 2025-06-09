@@ -2,31 +2,6 @@ import React, { useState, useEffect } from 'react';
 
 // --- Utility Hook: useWindowDimensions ---
 // A custom hook to get and update window dimensions on resize.
-function useWindowDimensions() {
-    const [windowDimensions, setWindowDimensions] = useState({
-        width: typeof window !== 'undefined' ? window.innerWidth : 0,
-        height: typeof window !== 'undefined' ? window.innerHeight : 0
-    });
-
-    useEffect(() => {
-        // Only run if window is defined (for SSR compatibility)
-        if (typeof window === 'undefined') return;
-
-        // Handler to update dimensions
-        function handleResize() {
-            setWindowDimensions({
-                width: window.innerWidth,
-                height: window.innerHeight
-            });
-        }
-        // Add event listener for window resize
-        window.addEventListener('resize', handleResize);
-        // Clean up the event listener on component unmount
-        return () => window.removeEventListener('resize', handleResize);
-    }, []); // Empty dependency array means this effect runs once on mount
-
-    return windowDimensions;
-}
 
 // --- Lucide Icons (Inline SVG for simplicity) ---
 // These are basic SVG representations for common icons.
