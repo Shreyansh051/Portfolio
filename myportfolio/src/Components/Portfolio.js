@@ -1,11 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 
-// --- Utility Hook: useWindowDimensions ---
-// A custom hook to get and update window dimensions on resize.
-
-// --- Lucide Icons (Inline SVG for simplicity) ---
-// These are basic SVG representations for common icons.
-// In a larger project, you might use a library like 'lucide-react' directly.
 const IconGithub = (props) => (
     <svg {...props} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 3c0-.49-.24-1.74-.7-2.32C18.17.61 17 2 17 2L15 2.2a2.38 2.38 0 0 0-2.38-2.38c-.22 0-.44.02-.65.07A2.38 2.38 0 0 0 9 0.22c-.22 0-.44.02-.65.07a2.38 2.38 0 0 0-2.38 2.38V3c0-.49-.24-1.74-.7-2.32C4.83.61 3.79 2 3.79 2L3 2.22A5.07 5.07 0 0 0 2.09 3c0-.49-.24-1.74-.7-2.32C.83.61 0 2 0 2C0 2.2 0 2.4 0 2.6V3c0 .49-.24 1.74-.7 2.32C-.17 6.39 0 7 0 7c0 .49-.24 1.74-.7 2.32C.83 10.39 2 11 2 11c0 .49-.24 1.74-.7 2.32C.83 14.39 2 15 2 15s.74 1.63 2.61 2.39a3.37 3.37 0 0 0 .94 2.61V22" stroke="currentColor" /><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.2c-1.4 0-1.6 2.2-1.6 2.2V18a4.8 4.8 0 0 0-1 3.2v-4c-1.4 0-1.6 2.2-1.6 2.2h-.4c-1.4 0-1.6 2.2-1.6 2.2V18c-1.4 0-1.6 2.2-1.6 2.2A4.8 4.8 0 0 0 4 18c-1.4 0-1.6 2.2-1.6 2.2V14a4.8 4.8 0 0 0-1 3.2V10c0-2.2 1.4-4 3.2-4h.4c-.4-1.6-.4-2.2-.4-3.2a4.8 4.8 0 0 0-1-3.2v-4c-1.4 0-1.6 2.2-1.6 2.2c-.4-1.6-.4-2.2-.4-3.2a4.8 4.8 0 0 0-1-3.2zM9 18a.6.6 0 0 1-.6-.6c0-.4.2-.6.6-.6s.6.2.6.6c0 .4-.2.6-.6.6zM15 18a.6.6 0 0 1-.6-.6c0-.4.2-.6.6-.6s.6.2.6.6c0 .4-.2.6-.6.6zM12 18a.6.6 0 0 1-.6-.6c0-.4.2-.6.6-.6s.6.2.6.6c0 .4-.2.6-.6.6z" /></svg>
 );
@@ -19,8 +13,7 @@ const IconMail = (props) => (
     <svg {...props} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect width="20" height="16" x="2" y="4" rx="2" /><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" /></svg>
 );
 
-// --- Data Definitions ---
-// Arrays holding skill and project data to be rendered dynamically.
+
 const frontSkillsList = [
     { label: "HTML5", src: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" },
     { label: "CSS3", src: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" },
@@ -30,12 +23,10 @@ const frontSkillsList = [
     { label: "Material UI", src: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/materialui/materialui-original.svg" },
     { label: "TypeScript", src: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg" },
     { label: "Bootstrap", src: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/bootstrap/bootstrap-original.svg" },
-    { label: "Chakra-UI", src: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/chakraui/chakraui-original.svg" },
     { label: "React Native", src: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" }, // React Native shares React icon typically
     { label: "Figma", src: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg" }, // For design skills
     { label: "Github", src: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" },
     { label: "NPM", src: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/npm/npm-original-wordmark.svg" },
-    { label: "Yarn", src: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/yarn/yarn-original.svg" },
 ];
 
 const backSkillsList = [
@@ -48,57 +39,73 @@ const backSkillsList = [
 const projectsList = [
 
     {
-        label: "Weather App",
-        imgSrc: "../../public/images/FoodApp.png", // Placeholder image
-        src: "https://boring-turing-d1946b.netlify.app/",
-        githubSrc: "https://github.com/Shreyansh051/Mini-Weather-",
-        description: "A responsive weather application built with vanilla JavaScript, HTML, and CSS, providing current and 7-day forecasts.",
-        stack: ["HTML", "JavaScript", "CSS"],
+        label: "LoanBoat",
+        imgSrc: "../images/loanboat.png", // Replace with actual image
+        src: "https://loanboatapp.com/",
+        githubSrc: "https://github.com/Shreyansh051/Mini-Weather-", // Update this if a public repo exists
+        description: "LoanBoat is the official company website for a personal loan platform. I built this solo from scratch to represent the brand online, focusing on clean design, responsive layout, and SEO optimization.We have also a mobile app, which helps users compare and apply for personal loans easily.",
+        stack: ["Next.js", "Tailwind CSS", "JavaScript", "Mongodb", "SEO",],
+    },
+    {
+        label: "Velodice",
+        imgSrc: "../images/velodice.png", // Placeholder image
+        src: "https://velodice.com/",
+        githubSrc: "https://github.com/Shreyansh051/AJIO_CLONE",
+        description: "Velodice is an online gaming website designed and developed for a  client. Built with React, it features responsive UI and interactive gameplay components. This project showcases my ability to deliver real-world solutions with smooth UX and scalable frontend architecture.",
+        stack: ["React", "HTML", "JavaScript", "CSS", "MERN"],
+    },
+    {
+        label: "Maharaja567",
+        imgSrc: "../images/maharaj567.png", // Placeholder image
+        src: "https://maharaj567.netlify.app/",
+        githubSrc: "https://github.com/Shreyansh051/Mini-Food-app",
+        description: "Maharaj567 is an online gaming website designed and developed for a  client. Built with React, it features responsive UI and interactive gameplay components. This project showcases my ability to deliver real-world solutions with smooth UX and scalable frontend architecture.",
+        stack: ["React", "HTML", "JavaScript", "CSS", "MERN"],
+    },
+
+    {
+        label: "Freshly Clone",
+        imgSrc: "../images/Freshly.png", // Placeholder image
+        src: "https://friendly-wing-3ca4d4.netlify.app/",
+        githubSrc: "https://github.com/Shreyansh051/Freshly_Project_clone",
+        description: "A group project replicating Freshly, a U.S.-based food delivery service. I contributed to the planning phase and was responsible for developing the menu page with a focus on responsive design and clean UI.",
+        stack: ["CSS", "HTML", "JavaScript", "Material-UI", "Bootstrap"],
     },
     {
         label: "Ajio Clone",
-        imgSrc: "../../public/images/FoodApp.png", // Placeholder image
+        imgSrc: "../images/Ajio.png", // Placeholder image
         src: "https://rad-wisp-02436f.netlify.app/",
-        githubSrc: "https://github.com/Shreyansh051/AJIO_CLONE",
-        description: "A collaborative e-commerce clone of Ajio.com, featuring full functionality and responsive design, emphasizing DOM manipulation skills.",
-        stack: ["HTML", "CSS", "JavaScript", "Material-UI", "Bootstrap"],
-    },
-    {
-        label: "Food Website",
-        imgSrc: "../../public/images/FoodApp.png", // Placeholder image
-        src: "https://peaceful-lamarr-51e4cf.netlify.app/",
-        githubSrc: "https://github.com/Shreyansh051/Mini-Food-app",
-        description: "A small food ordering website demonstrating basic order processing and number generation.",
-        stack: ["JavaScript", "HTML", "CSS"],
+        githubSrc: "https://github.com/Shreyansh051/Freshly_Project_clone",
+        description: "A group project replicating Freshly, a U.S.-based food delivery service. I contributed to the planning phase and was responsible for developing the menu page with a focus on responsive design and clean UI.",
+        stack: ["CSS", "HTML", "JavaScript", "Material-UI", "Bootstrap"],
     },
     {
         label: "Movie Searching Website",
-        imgSrc: "../../public/images/FoodApp.png", // Placeholder image
+        imgSrc: "../images/movie.png", // Placeholder image
         src: "https://jolly-poitras-83abc7.netlify.app/",
         githubSrc: "https://github.com/Shreyansh051/Mini-Movies-Searching-Website",
-        description: "A movie search application utilizing debouncing for efficient API calls and closure for data handling.",
-        stack: ["JavaScript", "CSS", "HTML"],
-    },
-    {
-        label: "Freshly Clone",
-        imgSrc: "../../public/images/FoodApp.png", // Placeholder image
-        src: "https://friendly-wing-3ca4d4.netlify.app/",
-        githubSrc: "https://github.com/Shreyansh051/Freshly_Project_clone",
-        description: "My first group project, a clone of Freshly (US-based food delivery), focusing on planning and menu page development.",
-        stack: ["CSS", "HTML", "JavaScript", "Material-UI", "Bootstrap"],
+        description: "My very first project — a simple movie searching website built using HTML, CSS, and JavaScript. This project helped me understand APIs, DOM manipulation, and the basics of frontend development. While basic, it marks the starting point of my journey into web development.",
+        stack: ["HTML", "CSS", "JavaScript"],
     },
 ];
 
-// --- Components ---
-
 // Navbar component for navigation with responsive toggle.
 const Navbar = () => {
+    // Array of navigation items, each with a label and an ID to scroll to.
     const navItems = [
         { label: "Home", id: "home" },
         { label: "Skills", id: "skills" },
         { label: "Projects", id: "projects" },
         { label: "Contact", id: "contact" },
     ];
+
+    // Ref to the mobile navigation menu to detect clicks outside of it.
+    const navRef = useRef(null);
+
+    // State to manage the mobile navigation menu's open/close status.
+    const [isOpen, setIsOpen] = useState(false);
+    // State to manage if the navbar should have a shadow (e.g., on scroll)
+    const [scrolled, setScrolled] = useState(false);
 
     // Function to smoothly scroll to a section by its ID.
     const scrollToSection = (id) => {
@@ -108,13 +115,13 @@ const Navbar = () => {
         }
     };
 
-    // State to manage the mobile navigation menu's open/close status.
-    const [isOpen, setIsOpen] = useState(false);
-    // State to manage if the navbar should have a shadow (e.g., on scroll)
-    const [scrolled, setScrolled] = useState(false);
-
+    // Effect hook to handle scroll events for adding/removing shadow.
+    // Also handles clicks outside the mobile menu to close it.
     useEffect(() => {
+        // Only run this effect in a browser environment.
         if (typeof window === 'undefined') return;
+
+        // Handler for scroll events to add/remove navbar shadow.
         const handleScroll = () => {
             if (window.scrollY > 50) { // Add shadow after scrolling 50px
                 setScrolled(true);
@@ -123,38 +130,81 @@ const Navbar = () => {
             }
         };
 
+        // Handler for clicks outside the mobile navigation menu.
+        const handleClickOutside = (event) => {
+            // If the menu is open and the click is outside the nav element, close the menu.
+            if (isOpen && navRef.current && !navRef.current.contains(event.target)) {
+                setIsOpen(false);
+            }
+        };
+
+        // Add event listeners.
         window.addEventListener('scroll', handleScroll);
-        return () => window.removeEventListener('scroll', handleScroll);
-    }, []);
+        document.addEventListener('mousedown', handleClickOutside); // Use mousedown for broader detection
+
+        // Clean up event listeners on component unmount.
+        return () => {
+            window.removeEventListener('scroll', handleScroll);
+            document.removeEventListener('mousedown', handleClickOutside);
+        };
+    }, [isOpen]); // Re-run effect if isOpen changes, to correctly attach/detach handleClickOutside
 
     return (
-        <nav className={`fixed top-0 left-0 w-full bg-zinc-950 bg-opacity-95 backdrop-blur-lg z-50 rounded-b-xl transition-all duration-300 ease-in-out ${scrolled ? 'shadow-2xl border-b border-violet-700' : 'shadow-none'}`}>
-            <div className="container mx-auto px-4 py-4 flex justify-between items-center">
-                {/* Logo */}
-                <a href="#home" onClick={() => scrollToSection('home')} className="flex items-center space-x-2 text-white text-2xl font-bold rounded-lg p-2 hover:bg-zinc-800 transition duration-300 transform hover:scale-105">
+        <nav
+            ref={navRef} // Attach ref to the nav element
+            className={`
+                fixed top-0 left-0 w-full bg-zinc-950 bg-opacity-95 backdrop-blur-lg
+                z-50 rounded-b-xl transition-all duration-300 ease-in-out
+                ${scrolled ? 'shadow-2xl border-b border-violet-700' : 'shadow-none'}
+            `}
+        >
+            <div className="container mx-auto px-4 py-4 flex justify-between items-center relative">
+                {/* Logo - Always visible and centered vertically */}
+                <a
+                    href="#home"
+                    onClick={() => { scrollToSection('home'); setIsOpen(false); }} // Close menu on logo click
+                    className="flex items-center space-x-2 text-white text-2xl font-bold rounded-lg p-2
+                               hover:bg-zinc-800 transition duration-300 transform hover:scale-105"
+                >
                     <img src="https://placehold.co/40x40/0F172A/E2E8F0?text=S" alt="Logo" className="h-9 w-9 rounded-full shadow-md border-2 border-violet-600" />
                     <span className="font-extrabold text-violet-400">Shreyansh</span>
                 </a>
 
-                {/* Mobile Toggle Button */}
+                {/* Mobile Toggle Button - Visible only on small screens */}
                 <button
-                    className="md:hidden p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-violet-400 text-zinc-200 transition-transform duration-300 hover:scale-110"
+                    className="md:hidden p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-violet-400
+                               text-zinc-200 transition-transform duration-300 hover:scale-110"
                     onClick={() => setIsOpen(!isOpen)}
                     aria-label="Toggle navigation"
                 >
                     <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        {/* Conditional rendering for hamburger or close icon */}
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d={isOpen ? "M6 18L18 6M6 6l12 12" : "M4 6h16M4 12h16M4 18h16"}></path>
                     </svg>
                 </button>
 
-                {/* Navigation Links (responsive visibility) */}
-                <div className={`${isOpen ? 'block' : 'hidden'} md:flex flex-col md:flex-row md:items-center md:space-x-8 mt-4 md:mt-0 w-full md:w-auto`}>
+                {/* Navigation Links - Hidden on mobile by default, shown when isOpen is true.
+                    Always flex on medium and larger screens. */}
+                <div
+                    className={`
+                        ${isOpen ? 'block' : 'hidden'}
+                        md:flex flex-col md:flex-row md:items-center md:space-x-8
+                        mt-4 md:mt-0 w-full md:w-auto
+                        absolute md:static top-full left-0
+                        bg-zinc-900 md:bg-transparent
+                        rounded-b-lg md:rounded-none
+                        shadow-lg md:shadow-none
+                        pb-4 md:pb-0
+                    `}
+                >
                     {navItems.map((item) => (
                         <a
                             key={item.id}
                             href={`#${item.id}`}
-                            onClick={() => { scrollToSection(item.id); setIsOpen(false); }} // Close menu on click
-                            className="block px-4 py-2 text-zinc-300 hover:text-violet-300 hover:bg-zinc-700 rounded-lg transition duration-300 text-center md:text-left text-lg font-medium tracking-wide transform hover:scale-105"
+                            onClick={() => { scrollToSection(item.id); setIsOpen(false); }} // Close menu on link click
+                            className="block px-4 py-3 text-zinc-300 hover:text-violet-300 hover:bg-zinc-700
+                                       rounded-lg transition duration-300 text-center md:text-left
+                                       text-lg font-medium tracking-wide transform hover:scale-105"
                         >
                             {item.label}
                         </a>
@@ -236,13 +286,9 @@ const ProjectCard = ({ project }) => {
     );
 };
 
-
-// --- Main Portfolio Component ---
-// This component encapsulates the entire portfolio layout and content.
-const App = () => { // Renamed from 'Portfolio' to 'App' for export
-    // useWindowDimensions is included but not directly used in the JSX here,
-  
+const App = () => {
     const [flipped, setFlipped] = useState(false);
+
     return (
         <div className="min-h-screen bg-zinc-950 text-zinc-200 font-inter antialiased overflow-x-hidden relative">
             {/* Global Styles and Keyframes for animations */}
@@ -329,6 +375,20 @@ const App = () => { // Renamed from 'Portfolio' to 'App' for export
                 .animate-spin-slow {
                     animation: spinSlow 15s linear infinite;
                 }
+
+                /* 3D Flip specific styles */
+                .perspective {
+                    perspective: 1000px;
+                }
+                .preserve-3d {
+                    transform-style: preserve-3d;
+                }
+                .backface-hidden {
+                    backface-visibility: hidden;
+                }
+                .rotate-y-180 {
+                    transform: rotateY(180deg);
+                }
             `}</style>
 
             {/* Navbar */}
@@ -345,7 +405,7 @@ const App = () => { // Renamed from 'Portfolio' to 'App' for export
 
                     <div className="container mx-auto flex flex-col md:flex-row items-center md:justify-around space-y-12 md:space-y-0 md:space-x-16 z-10">
                         <div className="text-center md:text-left max-w-lg">
-                            <h1 className="text-5xl md:text-6xl font-extrabold text-white leading-tight mb-4">
+                            <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold text-white leading-tight mb-4">
                                 {/* Split text into spans for individual word animation */}
                                 {"Hello, I'm ".split(' ').map((word, index) => (
                                     <span key={`hello-word-${index}`} className="staggered-text-word" style={{ animationDelay: `${0.1 * index}s` }}>
@@ -360,41 +420,41 @@ const App = () => { // Renamed from 'Portfolio' to 'App' for export
                                     ))}
                                 </span>
                             </h1>
-                            <p className="text-xl md:text-2xl text-zinc-300 leading-relaxed mb-8 animate-fade-in-up delay-300">
-                                I am always enthusiastic about developing websites and web applications. I like to talk about new technologies, *and crafting intuitive user experiences with beautiful design*.
-                            </p>
-                            <div className="flex justify-center md:justify-start space-x-6 mb-10 animate-fade-in-up delay-500">
+                            <p className="text-base sm:text-xl md:text-2xl text-zinc-300 leading-relaxed mb-8 animate-fade-in-up delay-300">
+                                Full Stack Developer with 2.5+ years of experience. Built and launched a full app solo using React Native, Node.js, and more—handling everything from design to deployment. Passionate about clean UI, real-world problem solving, and building scalable products. Always exploring new tech and ready to contribute to impactful projects.</p>
+                            <div className="flex justify-center md:justify-start space-x-4 sm:space-x-6 mb-10 animate-fade-in-up delay-500">
                                 <a
                                     href="https://github.com/Shreyansh051"
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="text-violet-400 hover:text-violet-300 transition-colors duration-300 rounded-full p-3 hover:bg-zinc-800 transform hover:scale-110 shadow-md ring-2 ring-violet-600 hover:ring-violet-400"
+                                    className="text-violet-400 hover:text-violet-300 transition-colors duration-300 rounded-full p-2 sm:p-3 hover:bg-zinc-800 transform hover:scale-110 shadow-md ring-2 ring-violet-600 hover:ring-violet-400"
                                     aria-label="GitHub Profile"
                                 >
-                                    <IconGithub className="w-9 h-9 md:w-10 md:h-10" />
+                                    <IconGithub className="w-7 h-7 sm:w-9 sm:h-9 md:w-10 md:h-10" />
                                 </a>
                                 <a
                                     href="https://www.linkedin.com/in/shreyansh-21b181215/"
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="text-violet-400 hover:text-violet-300 transition-colors duration-300 rounded-full p-3 hover:bg-zinc-800 transform hover:scale-110 shadow-md ring-2 ring-violet-600 hover:ring-violet-400"
+                                    className="text-violet-400 hover:text-violet-300 transition-colors duration-300 rounded-full p-2 sm:p-3 hover:bg-zinc-800 transform hover:scale-110 shadow-md ring-2 ring-violet-600 hover:ring-violet-400"
                                     aria-label="LinkedIn Profile"
                                 >
-                                    <IconLinkedin className="w-9 h-9 md:w-10 md:h-10" />
+                                    <IconLinkedin className="w-7 h-7 sm:w-9 sm:h-9 md:w-10 md:h-10" />
                                 </a>
                             </div>
                             <button
-                                onClick={() => window.open("https://docs.google.com/document/d/1Bf2R72H6uI-XkPj1Q8xXg6B4B5b8a6a6/export?format=pdf", "_blank")} // Placeholder resume link
-                                className="bg-gradient-to-r from-violet-600 to-fuchsia-600 hover:from-violet-700 hover:to-fuchsia-700 text-white font-bold py-4 px-10 rounded-full shadow-xl transition-all duration-300 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-violet-500 focus:ring-opacity-75 text-lg animate-fade-in-up delay-700"
+                                onClick={() => window.open("https://drive.google.com/file/d/1F3I-6DsSYLlcbJtpFI2jhT9LUO0utndi/view", "_blank")} // Placeholder resume link
+                                className="bg-gradient-to-r from-violet-600 to-fuchsia-600 hover:from-violet-700 hover:to-fuchsia-700 text-white font-bold py-3 px-8 sm:py-4 sm:px-10 rounded-full shadow-xl transition-all duration-300 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-violet-500 focus:ring-opacity-75 text-base sm:text-lg animate-fade-in-up delay-700"
                             >
                                 View Resume
                             </button>
                         </div>
-                        <div className="md:w-1/3 w-2/3 max-w-xs md:max-w-sm hidden md:block animate-fade-in-right delay-400">
+                        {/* Avatar image - now visible on smaller screens but hidden below 'md' breakpoint */}
+                        <div className="w-2/3 max-w-xs md:max-w-sm block md:block animate-fade-in-right delay-400">
                             {/* Flip container with 3D perspective */}
                             <div
                                 className="relative mx-auto perspective"
-                                style={{ width: '350px', height: '350px' }}
+                                style={{ width: '250px', height: '250px', maxWidth: '350px', maxHeight: '350px' }} // Adjusted initial size
                                 onMouseEnter={() => setFlipped(true)}
                                 onMouseLeave={() => setFlipped(false)}
                                 onClick={() => setFlipped(!flipped)} // Optional: remove if only hover
@@ -433,21 +493,21 @@ const App = () => { // Renamed from 'Portfolio' to 'App' for export
                 </section>
 
                 {/* Skills Section */}
-                <section id="skills" className="py-20 px-4 sm:px-6 lg:px-8 bg-zinc-900 relative">
+                <section id="skills" className="py-16 sm:py-20 px-4 sm:px-6 lg:px-8 bg-zinc-900 relative">
                     {/* Subtle background glow/blob */}
-                    <div className="absolute top-1/4 right-0 w-80 h-80 bg-purple-700 rounded-full mix-blend-multiply filter blur-3xl opacity-10 animate-blob animation-delay-1500"></div>
-                    <div className="absolute bottom-1/4 left-0 w-72 h-72 bg-rose-700 rounded-full mix-blend-multiply filter blur-3xl opacity-10 animate-blob animation-delay-3000"></div>
+                    <div className="absolute top-1/4 right-0 w-60 h-60 sm:w-80 sm:h-80 bg-purple-700 rounded-full mix-blend-multiply filter blur-3xl opacity-10 animate-blob animation-delay-1500"></div>
+                    <div className="absolute bottom-1/4 left-0 w-52 h-52 sm:w-72 sm:h-72 bg-rose-700 rounded-full mix-blend-multiply filter blur-3xl opacity-10 animate-blob animation-delay-3000"></div>
 
                     <div className="container mx-auto z-10 relative">
-                        <h2 className="text-5xl font-extrabold text-center mb-16 text-violet-400 drop-shadow-lg animate-slide-in-down">
-                            <span className="bg-zinc-800 px-6 py-3 rounded-2xl shadow-xl border border-zinc-700">My Skills</span>
+                        <h2 className="text-4xl sm:text-5xl font-extrabold text-center mb-12 sm:mb-16 text-violet-400 drop-shadow-lg animate-slide-in-down">
+                            <span className="bg-zinc-800 px-5 py-2 sm:px-6 sm:py-3 rounded-2xl shadow-xl border border-zinc-700">My Skills</span>
                         </h2>
 
-                        <div className="mb-16">
-                            <h3 className="text-4xl font-bold text-center mb-10 text-zinc-300 animate-slide-in-left delay-200">
+                        <div className="mb-12 sm:mb-16">
+                            <h3 className="text-3xl sm:text-4xl font-bold text-center mb-8 sm:mb-10 text-zinc-300 animate-slide-in-left delay-200">
                                 Front End & Mobile Development
                             </h3>
-                            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-8 justify-items-center">
+                            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-6 sm:gap-8 justify-items-center">
                                 {frontSkillsList.map((s) => (
                                     <SkillCard key={s.label} src={s.src} skillName={s.label} />
                                 ))}
@@ -455,10 +515,10 @@ const App = () => { // Renamed from 'Portfolio' to 'App' for export
                         </div>
 
                         <div>
-                            <h3 className="text-4xl font-bold text-center mb-10 text-zinc-300 animate-slide-in-right delay-200">
+                            <h3 className="text-3xl sm:text-4xl font-bold text-center mb-8 sm:mb-10 text-zinc-300 animate-slide-in-right delay-200">
                                 Back End
                             </h3>
-                            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-8 justify-items-center">
+                            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-6 sm:gap-8 justify-items-center">
                                 {backSkillsList.map((s) => (
                                     <SkillCard key={s.label} src={s.src} skillName={s.label} />
                                 ))}
@@ -468,12 +528,12 @@ const App = () => { // Renamed from 'Portfolio' to 'App' for export
                 </section>
 
                 {/* Projects Section */}
-                <section id="projects" className="py-20 px-4 sm:px-6 lg:px-8 bg-zinc-800">
+                <section id="projects" className="py-16 sm:py-20 px-4 sm:px-6 lg:px-8 bg-zinc-800">
                     <div className="container mx-auto">
-                        <h2 className="text-5xl font-extrabold text-center mb-16 text-violet-400 drop-shadow-lg animate-slide-in-down">
-                            <span className="bg-zinc-900 px-6 py-3 rounded-2xl shadow-xl border border-zinc-700">My Projects</span>
+                        <h2 className="text-4xl sm:text-5xl font-extrabold text-center mb-12 sm:mb-16 text-violet-400 drop-shadow-lg animate-slide-in-down">
+                            <span className="bg-zinc-900 px-5 py-2 sm:px-6 sm:py-3 rounded-2xl shadow-xl border border-zinc-700">My Projects</span>
                         </h2>
-                        <div className="grid grid-cols-1 gap-16">
+                        <div className="grid grid-cols-1 gap-12 sm:gap-16">
                             {projectsList.map((proj) => (
                                 <ProjectCard key={proj.label} project={proj} />
                             ))}
@@ -482,14 +542,14 @@ const App = () => { // Renamed from 'Portfolio' to 'App' for export
                 </section>
 
                 {/* Contact Section */}
-                <section id="contact" className="min-h-screen flex items-center justify-center py-20 px-4 sm:px-6 lg:px-8 bg-zinc-950 relative overflow-hidden">
+                <section id="contact" className="min-h-screen flex items-center justify-center py-16 sm:py-20 px-4 sm:px-6 lg:px-8 bg-zinc-950 relative overflow-hidden">
                     {/* Subtle background glow/blob */}
-                    <div className="absolute top-1/3 left-0 w-80 h-80 bg-fuchsia-700 rounded-full mix-blend-multiply filter blur-3xl opacity-15 animate-blob animation-delay-2500"></div>
-                    <div className="absolute bottom-1/3 right-0 w-96 h-96 bg-indigo-700 rounded-full mix-blend-multiply filter blur-3xl opacity-15 animate-blob"></div>
+                    <div className="absolute top-1/3 left-0 w-60 h-60 sm:w-80 sm:h-80 bg-fuchsia-700 rounded-full mix-blend-multiply filter blur-3xl opacity-15 animate-blob animation-delay-2500"></div>
+                    <div className="absolute bottom-1/3 right-0 w-72 h-72 sm:w-96 sm:h-96 bg-indigo-700 rounded-full mix-blend-multiply filter blur-3xl opacity-15 animate-blob"></div>
 
-                    <div className="container mx-auto flex flex-col md:flex-row items-center justify-center space-y-16 md:space-y-0 md:space-x-20 text-center md:text-left z-10">
+                    <div className="container mx-auto flex flex-col md:flex-row items-center justify-center space-y-12 md:space-y-0 md:space-x-20 text-center md:text-left z-10">
                         <div className="max-w-xl animate-fade-in-left">
-                            <h2 className="text-6xl md:text-7xl font-extrabold text-violet-400 leading-tight mb-8 drop-shadow-lg">
+                            <h2 className="text-5xl sm:text-6xl md:text-7xl font-extrabold text-violet-400 leading-tight mb-6 sm:mb-8 drop-shadow-lg">
                                 {/* Staggered text for emphasis */}
                                 {"Let's ".split(' ').map((word, index) => (
                                     <span key={`lets-word-${index}`} className="staggered-text-word" style={{ animationDelay: `${0.1 * index}s` }}>
@@ -509,45 +569,45 @@ const App = () => { // Renamed from 'Portfolio' to 'App' for export
                                     </span>
                                 ))}
                             </h2>
-                            <p className="text-xl text-zinc-300 leading-relaxed mb-10 animate-fade-in-up delay-300">
+                            <p className="text-base sm:text-xl text-zinc-300 leading-relaxed mb-8 sm:mb-10 animate-fade-in-up delay-300">
                                 One of my favorite things about developing web applications is the variety in projects. So if you want to collaborate or have some work for me, get in touch and tell me what you have in mind. — I can’t wait to hear all about it!
                             </p>
-                            <div className="flex flex-wrap justify-center md:justify-start gap-5 animate-fade-in-up delay-500">
+                            <div className="flex flex-wrap justify-center md:justify-start gap-4 sm:gap-5 animate-fade-in-up delay-500">
                                 <a
                                     href="tel:8435093856"
-                                    className="inline-flex items-center bg-zinc-800 hover:bg-zinc-700 text-zinc-200 font-semibold py-4 px-8 rounded-full shadow-xl transition-all duration-300 transform hover:scale-105 group ring-2 ring-violet-600 hover:ring-violet-400"
+                                    className="inline-flex items-center bg-zinc-800 hover:bg-zinc-700 text-zinc-200 font-semibold py-3 px-6 sm:py-4 sm:px-8 rounded-full shadow-xl transition-all duration-300 transform hover:scale-105 group ring-2 ring-violet-600 hover:ring-violet-400"
                                 >
-                                    <IconPhone className="w-6 h-6 mr-3 text-violet-400 group-hover:text-white transition-colors duration-300" />
-                                    <span className="text-lg">8435093856</span>
+                                    <IconPhone className="w-5 h-5 sm:w-6 sm:h-6 mr-2 sm:mr-3 text-violet-400 group-hover:text-white transition-colors duration-300" />
+                                    <span className="text-base sm:text-lg">8435093856</span>
                                 </a>
                                 <a
                                     href="https://www.linkedin.com/in/shreyansh-21b181215/"
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="inline-flex items-center bg-zinc-800 hover:bg-zinc-700 text-zinc-200 font-semibold py-4 px-8 rounded-full shadow-xl transition-all duration-300 transform hover:scale-105 group ring-2 ring-violet-600 hover:ring-violet-400"
+                                    className="inline-flex items-center bg-zinc-800 hover:bg-zinc-700 text-zinc-200 font-semibold py-3 px-6 sm:py-4 sm:px-8 rounded-full shadow-xl transition-all duration-300 transform hover:scale-105 group ring-2 ring-violet-600 hover:ring-violet-400"
                                     aria-label="LinkedIn Profile"
                                 >
-                                    <IconLinkedin className="w-6 h-6 mr-3 text-violet-400 group-hover:text-white transition-colors duration-300" />
-                                    <span className="text-lg">LinkedIn</span>
+                                    <IconLinkedin className="w-5 h-5 sm:w-6 sm:h-6 mr-2 sm:mr-3 text-violet-400 group-hover:text-white transition-colors duration-300" />
+                                    <span className="text-base sm:text-lg">LinkedIn</span>
                                 </a>
                                 <a
                                     href="https://github.com/Shreyansh051"
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="inline-flex items-center bg-zinc-800 hover:bg-zinc-700 text-zinc-200 font-semibold py-4 px-8 rounded-full shadow-xl transition-all duration-300 transform hover:scale-105 group ring-2 ring-violet-600 hover:ring-violet-400"
+                                    className="inline-flex items-center bg-zinc-800 hover:bg-zinc-700 text-zinc-200 font-semibold py-3 px-6 sm:py-4 sm:px-8 rounded-full shadow-xl transition-all duration-300 transform hover:scale-105 group ring-2 ring-violet-600 hover:ring-violet-400"
                                     aria-label="GitHub Profile"
                                 >
-                                    <IconGithub className="w-6 h-6 mr-3 text-violet-400 group-hover:text-white transition-colors duration-300" />
-                                    <span className="text-lg">GitHub</span>
+                                    <IconGithub className="w-5 h-5 sm:w-6 sm:h-6 mr-2 sm:mr-3 text-violet-400 group-hover:text-white transition-colors duration-300" />
+                                    <span className="text-base sm:text-lg">GitHub</span>
                                 </a>
                                 <a
-                                    href='mailto:shreyanshgupta148@gmail.com?subject="Hello !"'
+                                    href="mailto:shreyanshgupta148@gmail.com?subject=Hello%20!"
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="inline-flex items-center bg-zinc-800 hover:bg-zinc-700 text-zinc-200 font-semibold py-4 px-8 rounded-full shadow-xl transition-all duration-300 transform hover:scale-105 group ring-2 ring-violet-600 hover:ring-violet-400"
+                                    className="inline-flex items-center bg-zinc-800 hover:bg-zinc-700 text-zinc-200 font-semibold py-3 px-6 sm:py-4 sm:px-8 rounded-full shadow-xl transition-all duration-300 transform hover:scale-105 group ring-2 ring-violet-600 hover:ring-violet-400"
                                 >
-                                    <IconMail className="w-6 h-6 mr-3 text-violet-400 group-hover:text-white transition-colors duration-300" />
-                                    <span className="text-lg">Mail</span>
+                                    <IconMail className="w-5 h-5 sm:w-6 sm:h-6 mr-2 sm:mr-3 text-violet-400 group-hover:text-white transition-colors duration-300" />
+                                    <span className="text-base sm:text-lg">Mail</span>
                                 </a>
                             </div>
                         </div>
@@ -556,7 +616,7 @@ const App = () => { // Renamed from 'Portfolio' to 'App' for export
             </ScrollRevealWrapper>
 
             {/* Footer */}
-            <footer className="bg-zinc-900 text-center py-10 text-zinc-500 text-sm border-t border-zinc-800">
+            <footer className="bg-zinc-900 text-center py-8 sm:py-10 text-zinc-500 text-xs sm:text-sm border-t border-zinc-800">
                 <p>&copy; {new Date().getFullYear()} Shreyansh. All rights reserved.</p>
             </footer>
         </div>
