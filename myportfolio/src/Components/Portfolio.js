@@ -55,15 +55,6 @@ const projectsList = [
         stack: ["React", "HTML", "JavaScript", "CSS", "MERN"],
     },
     {
-        label: "Maharaja567",
-        imgSrc: "../images/maharaj567.png", // Placeholder image
-        src: "https://maharaj567.netlify.app/",
-        githubSrc: "https://github.com/Shreyansh051/Mini-Food-app",
-        description: "Maharaj567 is an online gaming website designed and developed for a  client. Built with React, it features responsive UI and interactive gameplay components. This project showcases my ability to deliver real-world solutions with smooth UX and scalable frontend architecture.",
-        stack: ["React", "HTML", "JavaScript", "CSS", "MERN"],
-    },
-
-    {
         label: "Freshly Clone",
         imgSrc: "../images/Freshly.png", // Placeholder image
         src: "https://friendly-wing-3ca4d4.netlify.app/",
